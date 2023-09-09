@@ -1,0 +1,14 @@
+:host {
+    display: block;
+    height: 4rem;
+    width: 100%;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    z-index: 20;
+}
+.text-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }

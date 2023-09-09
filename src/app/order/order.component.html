@@ -1,0 +1,87 @@
+<div class="my-container mx-auto">
+
+    <section class="m-3 p-4 border border-dark my-rounded-corner">
+        <h4 class="w-25 border border-secondary text-center py-2 my-rounded-corner">Hình thức thanh toán</h4>
+        <table class="table w-50 mx-auto table-bordered table-hover my-shadow">
+            <tbody>
+                <tr>
+                    <td>Tổng sản phẩm</td>
+                    <td class="fs-5 fw-bold">{{usersCart.cartItems.length}}</td>
+                </tr>
+                <tr>
+                    <td>Tổng giá</td>
+                    <td class="fs-5 fw-bold text-danger"> {{usersPaymentInfo.totalAmount}} </td>
+                </tr>
+                <tr>
+                    <td>Phí ship</td>
+                    <td class="fs-5 fw-bold text-danger">{{usersPaymentInfo.shipingCharges}}</td>
+                </tr>
+                <tr>
+                    <td>Giảm giá</td>
+                    <td class="fs-5 fw-bold text-success">{{usersPaymentInfo.amountReduced}}</td>
+                </tr>
+                <tr>
+                    <td>Thành tiền</td>
+                    <td class="fs-5 fw-bold text-success">{{usersPaymentInfo.amountPaid}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section class="m-3 p-4 border border-dark my-rounded-corner">
+        <h4 class="w-25 border border-secondary text-center py-2 my-rounded-corner">Hình thức thanh toán</h4>
+        <div class="d-flex justify-content-center align-items-center">
+            <h5 class="me-4">Chọn hình thức thanh toán</h5>
+            <select class="form-select w-25" [formControl]="selectedPaymentMethod">
+                <option value="0">Mở menu</option>
+                <option *ngFor="let paymentMethod of paymentMethods" value="{{paymentMethod.id}}">
+                    {{paymentMethod.type}}
+                    <span *ngIf="paymentMethod.provider !== ''">{{" - "+paymentMethod.provider}}</span>
+                </option>
+            </select>
+        </div>
+    </section>
+
+    <section class="m-3 p-4 border border-dark my-rounded-corner">
+        <h4 class="w-25 border border-secondary text-center py-2 my-rounded-corner">Tiến hành thanh toán</h4>
+        <div class="mt-4 w-50" *ngIf="selectedPaymentMethodName !== ''">
+            <table class="table table-bordered my-shadow">
+                <thead>
+                    <tr>
+                        <td>Thành tiền</td>
+                        <td> {{usersPaymentInfo.amountPaid}} </td>
+                    </tr>
+                    <tr>
+                        <td>Hình thức thanh toán</td>
+                        <td> {{this.getPaymentMethod(selectedPaymentMethodName)}} </td>
+                    </tr>
+                    <tr>
+                        <td>Địa chỉ</td>
+                        <td *ngIf="true"> {{address}} </td>
+                    </tr>
+                    <tr>
+                        <td>Số điện thoại</td>
+                        <td *ngIf="true"> {{mobileNumber}} </td>
+                    </tr>
+                </thead>
+            </table>
+
+            <div class="d-grid w-50">
+                <button type="button" class="btn btn-outline-success mb-4" (click)="placeOrder()">
+                    Thanh toán
+                </button>
+            </div>
+
+            <div class="processing">
+                <div class="spinner-border me-4" role="status" *ngIf="displaySpinner">
+                    <span class="visually-hidden">Vui lòng chờ...</span>
+                </div>
+                <h6 class="m-0" [ngClass]="classname"> {{message}} </h6>
+            </div>
+        </div>
+    </section>
+
+    <div *ngIf="!false" class="pt-4">
+        <h2>Bạn chưa đăng nhập</h2>
+    </div>
+</div>
